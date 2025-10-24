@@ -26,7 +26,8 @@ The database includes three main tables:
 ## 🧩 ERD (Entity Relationship Diagram)
 The ERD below shows table relationships and keys.
 
-📁 Located in: `docs/ERD.png`
+
+
 
 ---
 
