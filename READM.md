@@ -247,6 +247,8 @@ Upload evidence:
 
 ✅ Policy and function execution proofs
 
+---
+
 📊 Key Learnings
 
 Designed a normalized relational schema to reduce redundancy.
@@ -258,6 +260,8 @@ Applied role-based access control with SQL policies.
 Practiced joins, aggregations, and security auditing.
 
 Created clear technical documentation for a data project.
+
+---
 
 🧑‍💻 Author
 
