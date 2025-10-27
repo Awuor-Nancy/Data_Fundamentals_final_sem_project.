@@ -6,40 +6,42 @@
 
 ---
 
-## 📖 Table of Contents
-- [📘 Project Purpose](#-project-purpose)
-- [🗂️ Schema Overview](#%EF%B8%8F-schema-overview)
-- [🔗 Relationships](#-relationships)
-- [🧩 ERD (Entity-Relationship-Diagram)](#-erd-entity-relationship-diagram)
-- [🧮 Example Queries](#-example-queries)
-- [⚙️ Technologies Used](#%EF%B8%8F-technologies-used)
-- [🚀 How to Use](#-how-to-use)
-- [📊 Key Learnings](#-key-learnings)
-- [🧠 Author](#-author)
+## 📖 Table of Contents  
+- [📘 Project Purpose](#-project-purpose)  
+- [🗂️ Schema Overview](#%EF%B8%8F-schema-overview)  
+- [🔗 Relationships](#-relationships)  
+- [🧩 ERD (Entity Relationship Diagram)](#-erd-entity-relationship-diagram)  
+- [🧮 Example Queries](#-example-queries)  
+- [🔐 Security & RLS Setup](#-security--rls-setup)  
+- [🧠 Roles and Policies](#-roles-and-policies)  
+- [⚙️ Custom Admin Function](#%EF%B8%8F-custom-admin-function)  
+- [🧰 Technologies Used](#%EF%B8%8F-technologies-used)  
+- [🚀 How to Use](#-how-to-use)  
+- [📊 Key Learnings](#-key-learnings)  
+- [🧑‍💻 Author](#-author)  
 
 ---
 
-## 📘 Project Purpose
-This repository contains a relational database schema and sample data for a simplified **JetBlue Flight Booking System**.  
+## 📘 Project Purpose  
+This repository contains a relational database schema and security setup for a **JetBlue Flight Booking System** built using **Supabase (PostgreSQL)**.
 
-**Purpose:**
+**Purpose:**  
 - Demonstrate relational database design and normalization.  
-- Build and test SQL queries that answer practical airline questions (bookings, passenger counts, pricing).  
-- Provide documentation (README, ERD, and data dictionary) suitable for submission and future extension.
+- Implement Row Level Security (RLS) with Admin/User roles.  
+- Build and test SQL queries for practical airline data scenarios.  
+- Document setup for future academic or professional use.  
 
 ---
 
-## 🗂️ Schema Overview
-The database contains **three main tables**:
+## 🗂️ Schema Overview  
 
 | Table | Description |
 |--------|--------------|
 | **flights** | Flight schedules and operational details. |
-| **passengers** | Passenger information, including names and loyalty status. |
-| **bookings** | Junction table linking passengers to flights with ticket details. |
+| **passengers** | Passenger details, including name, email, and loyalty status. |
+| **bookings** | Links passengers to flights with seat and ticket details. |
 
-### 🧱 Current Table Definitions (from `schema.sql`)
-
+### 🧱 SQL Definitions
 ```sql
 -- Flights table
 CREATE TABLE flights (
@@ -70,110 +72,203 @@ CREATE TABLE bookings (
   ticket_price DECIMAL(10,2),
   booking_date DATE
 );
-
 ```
+
+---
+
 🔗 Relationships
 
-bookings.flight_id → references flights.flight_id (one flight → many bookings)
+bookings.flight_id → references flights.flight_id (One flight → Many bookings)
 
-bookings.passenger_id → references passengers.passenger_id (one passenger → many bookings)
+bookings.passenger_id → references passengers.passenger_id (One passenger → Many bookings)
 
-Effectively: flights ↔ passengers is a many-to-many relationship implemented via the bookings table.
+➡️ Result: Many-to-Many relationship between flights and passengers through bookings.
+---
 
 🧩 ERD (Entity Relationship Diagram)
 
-The ERD visualizes the three tables and their keys/relations.
+Visual representation of tables and their connections:
 
-File: docs/ERD.png
-Embed in README (renders on GitHub):
-
-![ERD Diagram](docs/ERD.png)
-
-
-(If the ERD image does not appear, confirm docs/ERD.png is committed to the dev_branch.)
+(Ensure the image file docs/ERD.png is committed to your repository.)
 
 ---
 
 🧮 Example Queries
 
-Copy these into Supabase SQL editor to test:
-
--- 1) List all upcoming flights
+-- 1️⃣ List all upcoming flights
 SELECT flight_number, origin, destination, departure_time, status
 FROM flights
 ORDER BY departure_time;
 
--- 2) Bookings for passenger with last name 'Santos'
+-- 2️⃣ Find bookings for a passenger named 'Santos'
 SELECT p.first_name, p.last_name, f.flight_number, f.destination, b.seat_number, b.ticket_price
 FROM bookings b
 JOIN passengers p ON b.passenger_id = p.passenger_id
 JOIN flights f ON b.flight_id = f.flight_id
 WHERE p.last_name = 'Santos';
 
--- 3) Count passengers per flight
+-- 3️⃣ Count total passengers per flight
 SELECT f.flight_number, COUNT(b.booking_id) AS total_bookings
 FROM bookings b
 JOIN flights f ON f.flight_id = b.flight_id
 GROUP BY f.flight_number
 ORDER BY total_bookings DESC;
 
--- 4) Average ticket price by route
-SELECT f.origin, f.destination, ROUND(AVG(b.ticket_price),2) AS avg_ticket_price
+-- 4️⃣ Average ticket price by route
+SELECT f.origin, f.destination, ROUND(AVG(b.ticket_price), 2) AS avg_ticket_price
 FROM bookings b
 JOIN flights f ON f.flight_id = b.flight_id
 GROUP BY f.origin, f.destination;
 
 ---
+🔐 Security & RLS Setup
+✅ Enable Row-Level Security
+ALTER TABLE flights ENABLE ROW LEVEL SECURITY;
+ALTER TABLE passengers ENABLE ROW LEVEL SECURITY;
+ALTER TABLE bookings ENABLE ROW LEVEL SECURITY;
 
-⚙️ Technologies Used
+---
+✅ Create User Roles Table
+CREATE TABLE users (
+  id UUID PRIMARY KEY DEFAULT auth.uid(),
+  email TEXT UNIQUE NOT NULL,
+  role TEXT CHECK (role IN ('admin', 'user')) DEFAULT 'user'
+);
 
-Supabase (PostgreSQL) — host and SQL editor used for schema and queries
+-- 
+Insert sample users
+INSERT INTO users (id, email, role)
+VALUES 
+  (gen_random_uuid(), 'admin@jetblue.com', 'admin'),
+  (gen_random_uuid(), 'nancy@jetblue.com', 'user'),
+  (gen_random_uuid(), 'barnabas@jetblue.com', 'user');
 
-SQL — schema definition, inserts, and analysis queries
+-- Enable pgcrypto (required for UUIDs)
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
-GitHub — repository and documentation (this README)
+
+-- 
+🧠 Roles and Policies
+👩‍✈️ Admin Role
+
+Full access — can read, insert, update, and delete any record.
+
+👤 Regular User Role
+
+Restricted — can only view and insert their own records.
+
+Users can view their own passenger record
+CREATE POLICY "Users can view own passenger record"
+ON passengers
+FOR SELECT
+TO authenticated
+USING (auth.uid() = user_id);
+
+-- Users can insert their own passenger record
+CREATE POLICY "Users can insert own passenger record"
+ON passengers
+FOR INSERT
+TO authenticated
+WITH CHECK (auth.uid() = user_id);
+
+-- Admins have full access to all passenger data
+CREATE POLICY "Admins manage all passenger data"
+ON passengers
+FOR ALL
+USING (
+  EXISTS (
+    SELECT 1 FROM users WHERE id = auth.uid() AND role = 'admin'
+  )
+);
+
+-- Admins can delete flights
+CREATE POLICY "Only admins can delete flights"
+ON flights
+FOR DELETE
+TO authenticated
+USING (
+  EXISTS (
+    SELECT 1 FROM users WHERE id = auth.uid() AND role = 'admin'
+  )
+);
+
+
+---
+
+⚙️ Custom Admin Function
+This function allows only admins to delete flights securely.
+CREATE OR REPLACE FUNCTION delete_flight(flight_to_delete INT)
+RETURNS VOID
+LANGUAGE plpgsql
+SECURITY DEFINER
+AS $$
+BEGIN
+  -- Verify admin role
+  IF NOT EXISTS (
+    SELECT 1 FROM users WHERE id = auth.uid() AND role = 'admin'
+  ) THEN
+    RAISE EXCEPTION 'Access denied. Admins only.';
+  END IF;
+
+  -- Delete flight
+  DELETE FROM flights WHERE flight_id = flight_to_delete;
+END;
+$$;
+
+---
+
+🧰 Technologies Used
+
+Supabase (PostgreSQL) — Database and SQL editor
+
+SQL — Schema creation, RLS, and functions
+
+GitHub — Repository hosting and documentation
 
 ---
 
 🚀 How to Use
 
-Ensure you are on the dev_branch in your GitHub repo (do not push to main until ready).
+Clone the repository and open your Supabase project.
 
-In Supabase:
+Paste and execute all SQL scripts from this README or schema.sql.
 
-Open the SQL editor, paste and run the schema.sql contents to create tables.
+Insert sample data for flights, passengers, and bookings.
 
-Run data.sql (or your insert statements) to populate sample data.
+Enable RLS and test with both Admin and User accounts.
 
-Run example queries from the Example Queries section to verify behavior.
+Run example queries and test access restrictions.
 
-Save screenshots of:
+Capture screenshots of:
 
-Table structure in Supabase
+ERD diagram
 
-Query results (examples above)
+Supabase tables
 
-ERD export
-Place images in /docs/screenshots/ and reference them in this README if needed.
+Policy settings
+
+Successful function execution
 
 ---
 
 📊 Key Learnings
 
-Designed a normalized schema to prevent data duplication.
+Designed a normalized relational schema to eliminate redundancy.
 
-Used foreign keys to enforce referential integrity between tables.
+Implemented Row-Level Security (RLS) for secure multi-user access.
 
-Practiced SQL join strategies and aggregation for business questions (passenger counts, pricing).
+Used Supabase Auth and SQL functions for role-based control.
 
-Prepared documentation (README, ERD, data dictionary) suitable for class submission and collaboration.
+Practiced JOINs, aggregations, and data integrity enforcement.
+
+Created professional GitHub documentation with clickable sections.
 
 ---
 
-🧠 Author
+🧑‍💻 Author
 
-Nancy Anyango (Project Owner)
+Nancy Anyango — Data Analyst & Developer
 
-GitHub: https://github.com/Awuor-Nancy
+GitHub: Awuor-Nancy
 
 Email: anyangnancy@gmail.com
