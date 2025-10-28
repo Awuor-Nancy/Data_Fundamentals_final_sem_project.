@@ -3,6 +3,7 @@
 The Entity Relationship Diagram (ERD) illustrates how data is organized and how different entities in the JetBlue Flight Booking System relate to one another.
 It provides a visual overview of the three core tables — flights, passengers, and bookings — along with their attributes and relationships.
 
+![ERD Diagram](docs/)
 
 
 🔗 Relationships Summary
