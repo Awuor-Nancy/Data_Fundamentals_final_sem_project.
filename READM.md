@@ -90,7 +90,9 @@ bookings.passenger_id → passengers.passenger_id → (One passenger → Many bo
 Visual representation of tables and relationships:
 
 📎 Include your ERD image in docs/ERD.png or update the path below.
-![ERD Diagram](docs/ERD.png)
+
+![ERD Diagram](<img width="1177" height="736" alt="image" src="https://github.com/user-attachments/assets/9a0b3597-1bdb-4ee8-bb2c-f6156dc741c5" />)
+
 
 ---
 
