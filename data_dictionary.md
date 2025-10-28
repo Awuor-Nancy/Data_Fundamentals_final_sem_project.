@@ -65,11 +65,32 @@ It serves as a reference for developers, analysts, and reviewers to understand t
 | `email` | `TEXT` | User login email (must be unique). |
 | `role` | `TEXT` | Role type: `'admin'` or `'user'`. Default is `'user'`. |
 
+🧩 Notes:
+
+Used for role-based access control (RLS).
+
+Admins can run special functions like deleting flights or bookings.
+
 🧩 **Notes:**
 - Admins have full CRUD access across all tables.  
 - Regular users have limited access controlled by Row-Level Security (RLS) policies.
 
 ---
+🧠 Functions (Custom Admin Actions)
+| **Function**                          | **Purpose**               | **Access**  |
+| ------------------------------------- | ------------------------- | ----------- |
+| `delete_booking(booking_id INT)`      | Deletes a booking record. | Admin only. |
+| `delete_flight(flight_to_delete INT)` | Deletes a flight record.  | Admin only. |
+---
+.
+🔒 Security (Row-Level Security Policies)
+| **Policy**                 | **Table**                           | **Access** | **Description**                                          |
+| -------------------------- | ----------------------------------- | ---------- | -------------------------------------------------------- |
+| Users view/insert own data | `passengers`, `bookings`            | User       | Authenticated users can only view or add their own data. |
+| Admins manage all          | `flights`, `passengers`, `bookings` | Admin      | Admins can perform all CRUD actions.                     |
+| RLS enabled                | All main tables                     | —          | Secures all access through Supabase policies.            |
+
+----
 
 ✅ **Summary of Relationships**
 
@@ -78,4 +99,12 @@ It serves as a reference for developers, analysts, and reviewers to understand t
 | `flights` → `bookings` | 1 → Many | A flight can have multiple bookings. |
 | `passengers` → `bookings` | 1 → Many | A passenger can book multiple flights. |
 | `users` | Auth | Controls who can access or modify data. |
+
+🪪 Roles Overview
+
+| **Role** | **Access Level** | **Capabilities**                                              |
+| -------- | ---------------- | ------------------------------------------------------------- |
+| `admin`  | Full             | Can create, update, delete any flight, booking, or passenger. |
+| `user`   | Restricted       | Can only view or insert their own passenger and booking data. |
+
 
