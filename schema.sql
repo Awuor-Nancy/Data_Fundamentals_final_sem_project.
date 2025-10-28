@@ -4,11 +4,6 @@
 
 This file defines the **JetBlue Flight Booking System** database schema used in Supabase.
 
-## 📦 Contents
-- `CREATE TABLE` commands for all core entities  
-- Optional sample data inserts  
-- Screenshot placeholders for visual proof  
-
 ---
 
 ### 🧱 Example `schema.sql` File
@@ -71,8 +66,8 @@ CREATE TABLE users (
 -- -----------------------------
 INSERT INTO users (id, email, role) VALUES
   (gen_random_uuid(), 'admin@jetblue.com', 'admin'),
-  (gen_random_uuid(), 'anyangnancy@gmail.com', 'user'),
-  (gen_random_uuid(), 'awuornancy66@gmail.com', 'user');
+  (gen_random_uuid(), 'anyangnancy@jetblue.com', 'user'),
+  (gen_random_uuid(), 'barnabas@jetblue.com', 'user');
 
 INSERT INTO flights (flight_number, origin, destination, departure_time, arrival_time, status)
 VALUES
