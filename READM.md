@@ -1,45 +1,63 @@
- # ✈️ Data_Fundamentals_Final_Sem_Project — JetBlue Flight Booking System
+# 🛫 JetBlue Flight Booking System
 
-<div align="center">
-  <img width="120" height="55" alt="JetBlue Logo" src="https://github.com/user-attachments/assets/5edb3297-2f15-4111-8a8b-56c199137dd7" />
-</div>
-
+A Supabase + SQL powered airline management system that allows administrators and users to manage flights, bookings, and passengers securely using Role-Based Access Control (RLS).
 ---
 
-## 📖 Table of Contents  
-- [📘 Project Purpose](#-project-purpose)  
-- [🗂️ Schema Overview](#-schema-overview)  
-- [🔗 Relationships](#-relationships)  
-- [🧩 ERD (Entity-Relationship-Diagram)](#-erd-entity-relationship-diagram)  
-- [🧮 Example Queries](#-example-queries)  
-- [🔐 Security & RLS Setup](#-security--rls-setup)  
-- [🧠 Roles and Policies](#-roles-and-policies)  
-- [⚙️ Custom Admin Function](#-custom-admin-function)  
-- [🧰 Technologies Used](#-technologies-used)  
-- [🚀 How to Use](#-how-to-use)  
-- [📊 Key Learnings](#-key-learnings)  
-- [🧑‍💻 Author](#-author)  
+📚 Table of Contents
 
+1. - Overview
+
+2. - Features
+
+3. - Database Schema
+
+4. - Entity-Relationship Diagram (ERD)
+
+5. - Data Dictionary
+
+6. - Row-Level Security (RLS) Policies
+
+7. - User Roles & Permissions
+
+8. - Custom SQL Functions
+
+9. - Setup Instructions
+
+10. - License
 ---
 
-## 📘 Project Purpose  
-This project demonstrates a **JetBlue Flight Booking System** built using **Supabase (PostgreSQL)**.  
+🧩 Overview
 
-**Objectives:**  
-- Design and normalize a relational database.  
-- Implement **Row Level Security (RLS)** with Admin and User roles.  
-- Build SQL queries for realistic airline use cases.  
-- Showcase security policies and SQL functions.  
+The JetBlue Flight Booking System enables secure management of:
 
----
+- Flight scheduling
 
-## 🗂️ Schema Overview  
+- Passenger records
 
-| Table | Description |
-|--------|--------------|
-| **flights** | Contains flight schedules and operational details. |
-| **passengers** | Stores passenger details including name, email, and loyalty status. |
-| **bookings** | Links passengers to flights, storing seat and ticket information. |
+- Booking details
+
+It uses Supabase for authentication, storage, and PostgreSQL database management with fine-grained Row-Level Security (RLS).
+
+✨ Features
+
+- ✅ Role-based access: Admin and User
+- ✅ Secure Row-Level Security (RLS)
+- ✅ CRUD operations with restrictions
+- ✅ Custom SQL functions (admin-only)
+- ✅ Integrated with Supabase Auth
+- ✅ Easy schema deployment via schema.sql
+
+🧱 Database Schema
+
+The system is structured around four core tables:
+
+| Table          | Description                                                 |
+| -------------- | ----------------------------------------------------------- |
+| **flights**    | Stores flight details and status.                           |
+| **passengers** | Stores passenger information linked to authenticated users. |
+| **bookings**   | Connects passengers to flights with booking details.        |
+| **users**      | Manages roles (`admin`, `user`) and links to Supabase Auth. |
+
 
 ## 🧱 SQL Definitions
 
