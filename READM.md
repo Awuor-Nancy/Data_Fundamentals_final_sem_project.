@@ -1,4 +1,4 @@
-# ✈️ Data_Fundamentals_Final_Sem_Project — JetBlue Flight Booking System
+ # ✈️ Data_Fundamentals_Final_Sem_Project — JetBlue Flight Booking System
 
 <div align="center">
   <img width="120" height="55" alt="JetBlue Logo" src="https://github.com/user-attachments/assets/5edb3297-2f15-4111-8a8b-56c199137dd7" />
@@ -87,11 +87,9 @@ bookings.passenger_id → passengers.passenger_id → (One passenger → Many bo
 
 🧩 ERD (Entity Relationship Diagram)
 
-Visual representation of tables and relationships:
-
-📎 Include your ERD image in docs/ERD.png or update the path below.
-
-![ERD Diagram](<img width="1177" height="736" alt="image" src="https://github.com/user-attachments/assets/9a0b3597-1bdb-4ee8-bb2c-f6156dc741c5" />)
+<p align="center">
+  <img width="1177" height="736" alt="ERD Diagram" src="https://github.com/user-attachments/assets/fc45842f-e8c3-4533-8985-2692f8c6e679" />
+</p>
 
 
 ---
