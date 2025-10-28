@@ -1,17 +1,17 @@
 ---
 
-### **3️⃣ Create `schema.sql`**
+# **3️⃣ Create `schema.sql`**
 
 This file defines the **JetBlue Flight Booking System** database schema used in Supabase.
 
-#### 📦 Contents
+## 📦 Contents
 - `CREATE TABLE` commands for all core entities  
 - Optional sample data inserts  
 - Screenshot placeholders for visual proof  
 
 ---
 
-#### 🧱 Example `schema.sql` File
+### 🧱 Example `schema.sql` File
 
 ```sql
 -- ==============================================
