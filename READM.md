@@ -41,7 +41,7 @@ This project demonstrates a **JetBlue Flight Booking System** built using **Supa
 | **passengers** | Stores passenger details including name, email, and loyalty status. |
 | **bookings** | Links passengers to flights, storing seat and ticket information. |
 
-### 🧱 SQL Definitions
+## 🧱 SQL Definitions
 
 ```sql
 -- Flights Table
@@ -75,6 +75,20 @@ CREATE TABLE bookings (
 );
 ```
 
+## 🖼️ Table Screenshots
+✈️ Flights Table
+<p align="center"> <<img width="1358" height="673" alt="flights_table" src="https://github.com/user-attachments/assets/9a65797f-8650-4850-9572-4e9d13a08dce" />
+ /> </p>
+
+ 
+👥 Passengers Table
+<p align="center"> <<img width="1362" height="662" alt="passengers_table" src="https://github.com/user-attachments/assets/39220f3e-f6c4-4a4c-82f3-e82df34e929f" />
+" /> </p>
+ 
+🎟️ Bookings Table
+<p align="center"> <<img width="1041" height="692" alt="bookings_table" src="https://github.com/user-attachments/assets/941136ab-b214-4871-bfa9-5a73a18804f9" />
+</p>
+
 ---
 
 🔗 Relationships
@@ -86,12 +100,7 @@ bookings.passenger_id → passengers.passenger_id → (One passenger → Many bo
 ➡️ Result: Many-to-Many relationship between flights and passengers through bookings.
 
 🧩 ERD (Entity Relationship Diagram)
-
-<p align="center">
-  <img width="1177" height="736" alt="ERD Diagram" src="https://github.com/user-attachments/assets/fc45842f-e8c3-4533-8985-2692f8c6e679" />
-</p>
-
-
+<p align="center"> <img width="1177" height="736" alt="ERD Diagram" src="https://github.com/user-attachments/assets/fc45842f-e8c3-4533-8985-2692f8c6e679" /> </p>
 ---
 
 🧮 Example Queries
