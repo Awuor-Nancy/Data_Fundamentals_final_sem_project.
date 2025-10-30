@@ -1,7 +1,7 @@
 # 📘 Data Dictionary — JetBlue Flight Booking System
 
-This data dictionary provides detailed descriptions of all tables and columns in the **JetBlue Flight Booking System** database.  
-It serves as a reference for developers, analysts, and reviewers to understand the schema structure and data relationships.
+This data dictionary provides detailed descriptions of all tables and columns in the JetBlue Flight Booking System database.
+It includes both the Supabase SQL schema and the Posit Cloud (RStudio) CSV-based analysis, used to visualize and explore flight and booking data.
 
 ---
 
@@ -34,8 +34,18 @@ It serves as a reference for developers, analysts, and reviewers to understand t
 | `loyalty_status` | `VARCHAR(20)`   | Loyalty program level (`Standard`, `Silver`, `Gold`). |
 
 🧩 **Notes:**
-- Passenger email must be unique across the system.  
-- Loyalty status can be used for marketing, upgrades, and analytics.
+
+- Bookings data imported as bookings_rows.csv in Posit Cloud for analysis.
+
+- Used to generate multiple ggplot2 visualizations, including:
+
+🎟️ Ticket Price Distribution
+
+🌍 Bookings per Destination
+
+✈️ Flight Status Counts
+
+- Relationships to flights and passengers confirmed via join operations in R.
 
 ---
 
@@ -106,5 +116,16 @@ Admins can run special functions like deleting flights or bookings.
 | -------- | ---------------- | ------------------------------------------------------------- |
 | `admin`  | Full             | Can create, update, delete any flight, booking, or passenger. |
 | `user`   | Restricted       | Can only view or insert their own passenger and booking data. |
+---
+
+💻 RStudio (Posit Cloud) Integration Summary
+
+| **Tool**                   | **Purpose**                                                                                          |
+| -------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Posit Cloud (RStudio)**  | Used for offline R analysis when Supabase API was unreachable.                                       |
+| **CSV Data Uploads**       | `flights_rows.csv`, `passengers_rows.csv`, `bookings_rows.csv` used as local datasets.               |
+| **Libraries Used**         | `dplyr`, `ggplot2`, `readr`                                                                          |
+| **Visualizations Created** | Total Bookings per Flight, Ticket Price Distribution, Bookings per Destination, Flight Status Counts |
+| **Evidence**               | Screenshots: `analysed_data.png` and `ggplot2.png` included in repository.                           |
 
 
