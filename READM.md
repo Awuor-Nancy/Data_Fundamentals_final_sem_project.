@@ -28,7 +28,8 @@ The JetBlue Flight Booking System enables secure management of:
 
 - 🎫 Booking details
 
-It uses Supabase for authentication and PostgreSQL database management, while R (Posit Cloud) was used for data exploration and visualization when the API connection was unstable.
+- It uses Supabase for authentication and PostgreSQL database management, while R (Posit Cloud) was used for data exploration and visualization when the API connection was unstable.
+
 --- 
 
 ## ✨ Features
