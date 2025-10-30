@@ -184,15 +184,15 @@ VALUES
   (gen_random_uuid(), 'awuornancy66@gmail.com', 'user');
 ```
 
--- 
+---
 🧠 Roles and Policies
 👩‍✈️ Admin Role
 
-Admins have full access — can read, insert, update, and delete any record.
+- Admins have full access — can read, insert, update, and delete any record.
 
 👤 User Role
 
-Regular users have restricted access — can view or insert only their own data.
+- Regular users have restricted access — can view or insert only their own data.
 
 ```
 -- Users can view their own passenger record
