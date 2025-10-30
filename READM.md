@@ -47,6 +47,7 @@ It uses Supabase for authentication and PostgreSQL database management, while R 
 ✅ R data analysis and visualization on Posit Cloud
 
 ✅ Clean schema with ERD and documentation
+
 ---
 
 ## 🧱 Database Schema
