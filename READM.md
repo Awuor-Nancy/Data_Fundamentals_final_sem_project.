@@ -9,7 +9,6 @@
 - [Features](#-features)
 - [Database Schema](#-database-schema)
 - [Entity-Relationship Diagram (ERD)](#-entity-relationship-diagram-erd)
-- [Data Dictionary](#-data-dictionary)
 - [Row-Level Security (RLS) Policies](#-row-level-security-rls-policies)
 - [User Roles & Permissions](#-user-roles--permissions)
 - [Custom SQL Functions](#-custom-sql-functions)
@@ -185,7 +184,7 @@ VALUES
 ```
 
 ---
-🧠 Roles and Policies
+🧠 User Roles and Permissions
 👩‍✈️ Admin Role
 
 - Admins have full access — can read, insert, update, and delete any record.
@@ -374,7 +373,7 @@ ggplot(status_summary, aes(x = status, y = total_flights, fill = status)) +
 
 ---
 
-## 🚀 How to Use
+## 🚀 Setup Instructions
 
 1. Clone this repository
 
@@ -487,7 +486,7 @@ ggplot2.png — Visualization of flight bookings
 
 - Created clear, professional documentation combining SQL + R data analysis.
 
-🧑‍💻 Author
+## 🧑‍💻 Lisense
 
 Nancy Anyango — Data Analyst & Developer
 📧 Email: anyangnancy@gmail.com
