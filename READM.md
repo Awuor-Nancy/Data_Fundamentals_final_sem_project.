@@ -112,51 +112,62 @@ CREATE TABLE bookings (
 
 🔗 Relationships
 
-bookings.flight_id → flights.flight_id → (One flight → Many bookings)
+- bookings.flight_id → flights.flight_id → (One flight → Many bookings)
 
-bookings.passenger_id → passengers.passenger_id → (One passenger → Many bookings)
+- bookings.passenger_id → passengers.passenger_id → (One passenger → Many bookings)
 
 ➡️ Result: Many-to-Many relationship between flights and passengers through bookings.
 
 ## 🧩 ERD (Entity Relationship Diagram)
 <p align="center"> <img width="1177" height="736" alt="ERD Diagram" src="https://github.com/user-attachments/assets/fc45842f-e8c3-4533-8985-2692f8c6e679" /> </p>
 
-🧮 Example Queries
+### 🧮 Example Queries
 
 1️⃣ List all upcoming flights
+```
 SELECT flight_number, origin, destination, departure_time, status
 FROM flights
 ORDER BY departure_time;
+```
 
 2️⃣ Find bookings for a passenger named 'Santos'
+```
 SELECT p.first_name, p.last_name, f.flight_number, f.destination, b.seat_number, b.ticket_price
 FROM bookings b
 JOIN passengers p ON b.passenger_id = p.passenger_id
 JOIN flights f ON b.flight_id = f.flight_id
 WHERE p.last_name = 'Santos';
+```
 
 3️⃣ Count total passengers per flight
+```
 SELECT f.flight_number, COUNT(b.booking_id) AS total_bookings
 FROM bookings b
 JOIN flights f ON f.flight_id = b.flight_id
 GROUP BY f.flight_number
 ORDER BY total_bookings DESC;
+```
 
 4️⃣ Average ticket price by route
+```
 SELECT f.origin, f.destination, ROUND(AVG(b.ticket_price), 2) AS avg_ticket_price
 FROM bookings b
 JOIN flights f ON f.flight_id = b.flight_id
 GROUP BY f.origin, f.destination;
+```
 
 ---
 ## 🔐 Security & RLS Setup
 ✅ Enable Row-Level Security
+```
 ALTER TABLE flights ENABLE ROW LEVEL SECURITY;
 ALTER TABLE passengers ENABLE ROW LEVEL SECURITY;
 ALTER TABLE bookings ENABLE ROW LEVEL SECURITY;
+```
 
 ---
 ✅ Create User Roles Table
+```
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 CREATE TABLE users (
@@ -171,6 +182,7 @@ VALUES
   (gen_random_uuid(), 'admin@jetblue.com', 'admin'),
   (gen_random_uuid(), 'anyangnancy@gmail.com', 'user'),
   (gen_random_uuid(), 'awuornancy66@gmail.com', 'user');
+```
 
 -- 
 🧠 Roles and Policies
