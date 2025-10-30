@@ -1,7 +1,7 @@
 
 # 🛫 JetBlue Flight Booking System
 
-A Supabase + SQL + R (Posit Cloud) powered airline management system that allows administrators and users to manage flights, bookings, and passengers securely using Role-Based Access Control (RLS).
+- A Supabase + SQL + R (Posit Cloud) powered airline management system that allows administrators and users to manage flights, bookings, and passengers securely using Role-Based Access Control (RLS).
 ---
 
 ## 📚 Table of Contents
@@ -19,7 +19,7 @@ A Supabase + SQL + R (Posit Cloud) powered airline management system that allows
 
 ---
 
-### 🧩 Overview
+## 🧩 Overview
 
 The JetBlue Flight Booking System enables secure management of:
 
@@ -32,7 +32,7 @@ The JetBlue Flight Booking System enables secure management of:
 It uses Supabase for authentication and PostgreSQL database management, while R (Posit Cloud) was used for data exploration and visualization when the API connection was unstable.
 --- 
 
-### ✨ Features
+## ✨ Features
 
 ✅ Role-based access control (Admin / User)
 
@@ -49,7 +49,7 @@ It uses Supabase for authentication and PostgreSQL database management, while R 
 ✅ Clean schema with ERD and documentation
 ---
 
-### 🧱 Database Schema
+## 🧱 Database Schema
 
 | Table          | Description                                                   |
 | -------------- | ------------------------------------------------------------- |
@@ -59,7 +59,7 @@ It uses Supabase for authentication and PostgreSQL database management, while R 
 | **users**      | Manages user roles (`admin`, `user`) linked to Supabase Auth. |
 ---
 
-## 🧱 SQL Definitions
+### 🧱 SQL Definitions
 
 ```sql
 -- Flights Table
@@ -93,7 +93,7 @@ CREATE TABLE bookings (
 );
 ```
 
-## 🖼️ Table Screenshots
+### 🖼️ Table Screenshots
 ✈️ Flights Table
 <p align="center"> <<img width="1358" height="673" alt="flights_table" src="https://github.com/user-attachments/assets/9a65797f-8650-4850-9572-4e9d13a08dce" />
  /> </p>
@@ -117,39 +117,38 @@ bookings.passenger_id → passengers.passenger_id → (One passenger → Many bo
 
 ➡️ Result: Many-to-Many relationship between flights and passengers through bookings.
 
-### 🧩 ERD (Entity Relationship Diagram)
+## 🧩 ERD (Entity Relationship Diagram)
 <p align="center"> <img width="1177" height="736" alt="ERD Diagram" src="https://github.com/user-attachments/assets/fc45842f-e8c3-4533-8985-2692f8c6e679" /> </p>
----
 
 🧮 Example Queries
 
--- 1️⃣ List all upcoming flights
+1️⃣ List all upcoming flights
 SELECT flight_number, origin, destination, departure_time, status
 FROM flights
 ORDER BY departure_time;
 
--- 2️⃣ Find bookings for a passenger named 'Santos'
+2️⃣ Find bookings for a passenger named 'Santos'
 SELECT p.first_name, p.last_name, f.flight_number, f.destination, b.seat_number, b.ticket_price
 FROM bookings b
 JOIN passengers p ON b.passenger_id = p.passenger_id
 JOIN flights f ON b.flight_id = f.flight_id
 WHERE p.last_name = 'Santos';
 
--- 3️⃣ Count total passengers per flight
+3️⃣ Count total passengers per flight
 SELECT f.flight_number, COUNT(b.booking_id) AS total_bookings
 FROM bookings b
 JOIN flights f ON f.flight_id = b.flight_id
 GROUP BY f.flight_number
 ORDER BY total_bookings DESC;
 
--- 4️⃣ Average ticket price by route
+4️⃣ Average ticket price by route
 SELECT f.origin, f.destination, ROUND(AVG(b.ticket_price), 2) AS avg_ticket_price
 FROM bookings b
 JOIN flights f ON f.flight_id = b.flight_id
 GROUP BY f.origin, f.destination;
 
 ---
-### 🔐 Security & RLS Setup
+## 🔐 Security & RLS Setup
 ✅ Enable Row-Level Security
 ALTER TABLE flights ENABLE ROW LEVEL SECURITY;
 ALTER TABLE passengers ENABLE ROW LEVEL SECURITY;
@@ -241,7 +240,7 @@ $$;
 ```
 ---
 
-### 🧩 R & Posit Cloud Integration (Data Analysis)
+## 🧩 R & Posit Cloud Integration (Data Analysis)
 
 Because of network restrictions, the Supabase API connection failed in RStudio using the RPostgres library (Error: Network is unreachable).
 To proceed with analysis, I:
@@ -251,15 +250,16 @@ To proceed with analysis, I:
 2. Uploaded them to Posit Cloud for local analysis.
 
 3. Used R libraries like dplyr, ggplot2, and readr to explore and visualize data.
----
 
 ---
+
 ### LOAD LIBRARIES
 
 install.packages("tidyverse")  # run once only
 library(tidyverse)
 
 ---
+```
 ### LOAD DATA
 
 flights <- read_csv("flights_rows.csv")
@@ -328,10 +328,11 @@ ggplot(status_summary, aes(x = status, y = total_flights, fill = status)) +
     y = "Number of Flights"
   ) +
   theme_minimal()
+  ```
 
   ---
 
-  📊 Example Visualization from R
+  ## 📊 Screenshots for Visualization using R
   
   - Ticket Price Distribution (ggplot2)
 <p align="center"> <img width="1392" height="755" alt="image" src="https://github.com/user-attachments/assets/8776b846-b96c-498c-9526-cde671ce2d68" />
@@ -346,7 +347,7 @@ ggplot(status_summary, aes(x = status, y = total_flights, fill = status)) +
  </p>
   
 
-🧰 Technologies Used
+## 🧰 Technologies Used
 ---
 
 | Tool            | Purpose                         |
@@ -360,12 +361,12 @@ ggplot(status_summary, aes(x = status, y = total_flights, fill = status)) +
 
 ---
 
-🚀 How to Use
+## 🚀 How to Use
 
 1. Clone this repository
 
-git clone https://github.com/Awuor-Nancy/Data_Fundamentals_Final_Sem_Project.git
-t
+`` git clone https://github.com/Awuor-Nancy/Data_Fundamentals_Final_Sem_Project.git
+``
 
 2. Set up the database in Supabase
 
@@ -402,26 +403,30 @@ install.packages(c("DBI", "RPostgres", "dplyr", "ggplot2"))
 
 Load the datasets:
 
+``
 flights <- read.csv("flights_rows.csv")
 passengers <- read.csv("passengers_rows.csv")
 bookings <- read.csv("bookings_rows.csv")
+``
 
 
 Perform data analysis and visualization, for example:
 
-# Total bookings per flight
+`` # Total bookings per flight
 library(dplyr)
 bookings_summary <- bookings %>%
   group_by(flight_id) %>%
   summarise(total_bookings = n()) %>%
   left_join(flights, by = "flight_id")
+  ``
 
-# Plot: Total Bookings per Flight
+`` # Plot: Total Bookings per Flight
 library(ggplot2)
 ggplot(bookings_summary, aes(x = flight_number, y = total_bookings)) +
   geom_bar(stat = "identity", fill = "steelblue") +
   labs(title = "Total Bookings per Flight", x = "Flight Number", y = "Bookings") +
   theme_minimal()
+  ``
 
 
 Additional analyses done in R:
