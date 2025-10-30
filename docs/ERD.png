@@ -1,0 +1,37 @@
+✈️ Entity Relationship Diagram (ERD) — JetBlue Flight Booking System
+
+The Entity Relationship Diagram (ERD) illustrates how data is organized and how different entities in the JetBlue Flight Booking System relate to one another.
+It provides a visual overview of the three core tables — flights, passengers, and bookings — along with their attributes and relationships.
+
+![ERD Diagram](docs/)
+
+
+🔗 Relationships Summary
+
+One flight can have many bookings.
+
+One passenger can make many bookings.
+
+Therefore, the relationship between flights and passengers is many-to-many, represented through the bookings table.
+
+🧩 ERD Visualization
+
+The diagram below (saved as docs/ERD.png) visually represents these relationships:
+
+Primary keys (PK) are shown with a key icon.
+
+Foreign keys (FK) link related tables.
+
+Dashed lines represent relationships between entities.
+
+📁 File path: docs/ERD.png
+
+💬 In summary
+
+This ERD ensures:
+
+Data integrity via primary and foreign keys.
+
+Efficient querying through normalization.
+
+Scalability, allowing easy addition of new entities such as aircrafts, crew, or payments in the future.
